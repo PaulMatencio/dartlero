@@ -31,12 +31,15 @@ testProjects(Projects projects) {
       projects.add(production);
       expect(projects.length, equals(++projectCount));
 
-      //projects.display('Projects');
+      // projects.display('===> Projects');
+
     });
+
     tearDown(() {
       projects.clear();
       expect(projects.isEmpty, isTrue);
     });
+
     test('Add Project', () {
       var project = new Project();
       expect(project, isNotNull);
@@ -46,6 +49,7 @@ testProjects(Projects projects) {
       expect(added, isTrue);
       projects.display('Add Project');
     });
+
     test('Add Project Without Data', () {
       var project = new Project();
       expect(project, isNotNull);
@@ -53,6 +57,7 @@ testProjects(Projects projects) {
       expect(added, isTrue);
       projects.display('Add Project Without Data');
     });
+
     test('Add Project Not Unique', () {
       var project = new Project();
       expect(project, isNotNull);
@@ -61,6 +66,7 @@ testProjects(Projects projects) {
       expect(added, isFalse);
       projects.display('Add Project Not Unique');
     });
+
     test('Find Project by Name', () {
       var searchName = 'Dartling';
       var project = projects.find(searchName);
@@ -68,12 +74,14 @@ testProjects(Projects projects) {
       expect(project.name, equals(searchName));
       project.display('Find Project by Name');
     });
+
     test('Select Projects by Function', () {
       var programmingProjects = projects.select((p) => p.onProgramming);
       expect(programmingProjects.isEmpty, isFalse);
       expect(programmingProjects.length, equals(2));
       programmingProjects.display('Select Projects by Function');
     });
+
     test('Select Projects by Function then Add', () {
       var programmingProjects = projects.select((p) => p.onProgramming);
       expect(programmingProjects.isEmpty, isFalse);
@@ -90,6 +98,7 @@ testProjects(Projects projects) {
       expect(project, isNull);
       projects.display('Projects');
     });
+
     test('Select Projects by Function then Remove', () {
       var projectCount = projects.length;
       projects.display('Projects Before Remove');
@@ -105,10 +114,12 @@ testProjects(Projects projects) {
       expect(programmingProjects.length, equals(--programmingProjectCount));
       expect(projects.length, equals(projectCount));
     });
+
     test('Order Projects by Name', () {
       projects.orderByFunction((m,n) => m.compareTo(n));
       projects.display('Order Projects by Name');
     });
+
     test('New Project', () {
       var projectCount = projects.length;
       var marketing = new Project();
@@ -120,6 +131,7 @@ testProjects(Projects projects) {
       expect(projects.length, equals(++projectCount));
       projects.display('New Project');
     });
+
     test('Copy Projects', () {
       Projects copiedProjects = projects.copy();
       expect(copiedProjects.isEmpty, isFalse);
@@ -130,15 +142,18 @@ testProjects(Projects projects) {
           expect(cp, isNot(same(projects.find(cp.name)))));
       copiedProjects.display('Copied Projects');
     });
+
     test('True for Every Project', () {
       expect(projects.every((p) => p.code != null), isTrue);
       expect(projects.every((p) => p.name != null), isTrue);
     });
+
     test('From Projects to JSON', () {
       var json = projects.toJson();
       expect(json, isNotNull);
       print(json);
     });
+
     test('From JSON to Project Model', () {
       List<Map<String, Object>> json = projects.toJson();
       projects.clear();
@@ -147,6 +162,7 @@ testProjects(Projects projects) {
       expect(projects.isEmpty, isFalse);
       projects.display('From JSON to Projects');
     });
+
     test('Reactions to Add and Remove Project', () {
       var projectCount = projects.length;
       projects.startReaction(react);
@@ -160,6 +176,7 @@ testProjects(Projects projects) {
       expect(react(Action.REMOVE), isTrue);
       projects.cancelReaction(react);
     });
+
     test('Reactions to Add and Update Project', () {
       var projectCount = projects.length;
       projects.startReaction(react);
@@ -172,6 +189,7 @@ testProjects(Projects projects) {
       expect(react(Action.UPDATE), isTrue);
       projects.cancelReaction(react);
     });
+
     test('Reactions to Clear Projects', () {
       projects.startReaction(react);
       projects.clear();

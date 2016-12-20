@@ -97,11 +97,13 @@ abstract class ConceptEntity<T extends ConceptEntity<T>> implements ConceptEntit
 }
 
 abstract class ConceptEntities<T extends ConceptEntity<T>> implements ConceptEntitiesApi {
+
   var _entityList = new List<T>();
   var _entityMap = new Map<String, T>();
 
   int get length => _entityList.length;
   bool get isEmpty => _entityList.isEmpty;
+
   Iterator<T> get iterator => _entityList.iterator;
 
   List<T> get internalList => _entityList;
@@ -209,7 +211,7 @@ abstract class ConceptEntities<T extends ConceptEntity<T>> implements ConceptEnt
    */
   ConceptEntities<T> copy() {
     ConceptEntities<T> copiedEntities = newEntities();
-    for (T entity in this) {
+    for (T entity in _entityList) {
       copiedEntities.add(entity.copy());
     }
     return copiedEntities;
